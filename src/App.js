@@ -64,6 +64,13 @@ const App = () => {
         setUser(null)
     }
 
+    const handleLike = async (blogObject) => {
+        await blogService.update(blogObject.id, blogObject)
+        blogService.getAll().then(blogs =>
+            setBlogs( blogs )
+        )
+    }
+
     const createBlog = async (blogObject) => {
         try {
             const newBlog = await blogService.create(
@@ -111,7 +118,7 @@ const App = () => {
                 <BlogForm createBlog={createBlog}></BlogForm>
             </Togglable>
             {blogs.sort((a, b) => a.likes - b.likes).map(blog =>
-                <Blog key={blog.id} blog={blog} user={user}/>
+                <Blog key={blog.id} blog={blog} user={user} likePost={handleLike}/>
             )}
         </div>
     )

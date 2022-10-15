@@ -2,7 +2,7 @@ import { useState } from 'react'
 import blogService from '../services/blogs'
 
 
-const Blog = ({ blog, user }) => {
+const Blog = ({ blog, user, likePost }) => {
 
     const [visible, setVisible] = useState(false)
 
@@ -18,8 +18,7 @@ const Blog = ({ blog, user }) => {
     }
 
     const handleLike = async () => {
-        const newBlog = { ...blog, likes: blog.likes+1 }
-        await blogService.update(blog.id, newBlog)
+        await likePost( { ...blog, likes: blog.likes+1 })
     }
 
     const handleDelete = async () => {
@@ -30,18 +29,19 @@ const Blog = ({ blog, user }) => {
 
     return (
         <div style={blogStyle}>
-            <div style={hideIfVisible}>
-                {blog.title} {blog.author}
+            <div style={hideIfVisible} className='blog'>
+                <div className='title'>{blog.title}</div>
+                <div className='author'>{blog.author}</div>
                 <button onClick={() => {setVisible(!visible)}}>View</button>
             </div>
-            <div style={showIfVisible}>
+            <div style={showIfVisible} className='toggleContent'>
                 <div>
                     {blog.title} {blog.author}
                     <button onClick={() => {setVisible(!visible)}}>Hide</button>
                 </div>
                 <ul>
-                    <li>{blog.url}</li>
-                    <li>{blog.likes} <button onClick={handleLike}>Like</button> </li>
+                    <li className='url'>{blog.url}</li>
+                    <li className='likes'>{blog.likes} <button className='likeButton' onClick={handleLike}>Like</button> </li>
                     <li>{blog.user.name}</li>
                 </ul>
                 {user !== null && user.name === blog.user.name && <button onClick={handleDelete}>Remove</button>}
