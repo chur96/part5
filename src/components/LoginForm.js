@@ -10,8 +10,8 @@ const LoginForm = ({
 }) => {
     const [visible, setVisible] = useState(false)
 
-    const hideIfVisible = { 'display' : visible ? 'none' : '' }
-    const showIfVisible = { 'display' : visible ? '' : 'none' }
+    const hideIfVisible = { 'display' : visible ? '' : 'none' }
+    const showIfVisible = { 'display' : visible ? 'none' : '' }
 
     const handleVisible = () => {
         setVisible(!visible)
@@ -23,13 +23,13 @@ const LoginForm = ({
                 <form id='login' onSubmit={login}>
                     <div>
                         <label>Username</label>
-                        <input type='text' value={username} name='Username' onChange={handleUsername}></input>
+                        <input type='text' value={username} name='Username' id='username' onChange={handleUsername}></input>
                     </div>
                     <div>
                         <label>Password</label>
-                        <input type='password' value={password} name='Password' onChange={handlePassword}></input>
+                        <input type='password' value={password} name='Password' id='password' onChange={handlePassword}></input>
                     </div>
-                    <button type='submit'>Login</button>
+                    <button type='submit' id='loginButton'>Login</button>
                 </form>
                 <button onClick={handleVisible}>Cancel</button>
             </div>
